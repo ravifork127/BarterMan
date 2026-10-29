@@ -1,4 +1,3 @@
-drop function if exists public.request_to_buy(uuid);
 create function public.request_to_buy(target_listing_id uuid)
 returns uuid
 language sql
