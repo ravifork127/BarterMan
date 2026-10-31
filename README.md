@@ -43,3 +43,8 @@ After applying migrations `001_marketplace.sql` and `002_private_profile_history
 Fixed-price sale listings use a purchase request at the listed price; the seller confirms the handoff. BarterMan does not process payment. Auctions alone accept bids, and rental listings take date-range rental requests. Buyers and sellers can continue privately in the in-app Messages screen. Run `supabase/migrations/004_buy_messaging_whatsapp.sql` after migrations 001 and 002 to install the purchase RPC and non-recursive conversation membership RLS helper.
 
 Phone numbers are stored privately and are not currently OTP-verified or shared with sellers. Real SMS or WhatsApp OTP delivery needs an authentication provider and server-side credentials configured in Supabase; the app must not pretend verification succeeded without that provider.
+
+
+### Realtime listing, request, and message updates
+
+Apply `supabase/migrations/011_realtime_publication.sql` in the Supabase SQL Editor after the schema migrations. It safely adds the marketplace, request, and messaging tables to the `supabase_realtime` publication when they are not already included. The app subscribes to those database changes; Row Level Security still controls which rows each signed-in user can read.
